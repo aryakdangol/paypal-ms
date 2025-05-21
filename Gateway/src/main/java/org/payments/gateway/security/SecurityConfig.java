@@ -10,12 +10,16 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final AuthenticationFilter authenticationFilter;
+    private final ExceptionHandlerFilter exceptionHandlerFilter;
+    private final JwtFilter jwtFilter;
 
 
     @Bean
@@ -30,10 +34,15 @@ public class SecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable);
 
-        http.authorizeHttpRequests(authorize -> {
-                authorize.requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated();
-                });
+        http.authorizeHttpRequests(authorize ->
+
+            authorize.requestMatchers(toH2Console()).permitAll()
+                    .requestMatchers("/auth/**").permitAll()
+                    .anyRequest().authenticated()
+        )
+                .addFilterBefore(exceptionHandlerFilter, AuthenticationFilter.class)
+                .addFilter(authenticationFilter)
+                .addFilterBefore(jwtFilter, AuthenticationFilter.class);
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();

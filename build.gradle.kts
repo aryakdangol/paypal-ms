@@ -1,14 +1,14 @@
 plugins {
     id("java")
-    id("org.springframework.boot") version "3.2.5" apply false
-    id("io.spring.dependency-management") version "1.1.4"
+    id("org.springframework.boot") version "3.4.5" apply false
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
 allprojects {
-    group = "com.nexaryak"
+    group = "com.payments"
     version = "1.0.0"
 
     repositories {

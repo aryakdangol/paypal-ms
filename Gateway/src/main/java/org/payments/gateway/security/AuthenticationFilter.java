@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.payments.gateway.dto.UserDTO;
+import org.payments.gateway.exception.AuthException;
 import org.payments.gateway.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class.getName());
@@ -43,12 +46,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         }
         catch (AuthenticationException e){
             log.info("Error occurred  while logging in user...{}", e.getMessage());
-            throw new RuntimeException("Error occurred while logging in User");
+            throw new AuthException("Error occurred while logging in User", 500);
         }
         catch (IOException e){
             log.error("Error while parsing login details: {}", e.getMessage());
-            return null;
-            //throw  new RequestParseException(UserDTO.class);
+            throw new AuthException("Error parsing User Login Details", 400);
         }
     }
 
