@@ -1,4 +1,4 @@
-package org.nexaryak;
+package org.payments;
 
 public class Main {
     public static void main(String[] args) {
