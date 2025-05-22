@@ -11,10 +11,9 @@ public class JwtUtils {
     private static final long EXPIRATION_TIME = Long.parseLong(System.getenv("JWT_EXPIRY_TIME"));
 
 
-    public static String generateToken(String username, String role) {
+    public static String generateToken(String username) {
         return JWT.create()
                 .withSubject(username)
-                .withClaim("role", role)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET_KEY.getBytes()));
     }

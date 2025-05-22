@@ -14,7 +14,6 @@ dependencies {
     implementation("org.postgresql:postgresql")
     implementation("com.auth0:java-jwt:4.4.0")
     compileOnly("org.projectlombok:lombok")
-    runtimeOnly("com.h2database:h2")
     annotationProcessor("org.projectlombok:lombok")
 }
 

@@ -21,6 +21,7 @@ subprojects {
     apply(plugin = "io.spring.dependency-management")
 
     dependencies {
+        runtimeOnly("com.h2database:h2")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }

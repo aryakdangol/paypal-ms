@@ -1,5 +1,6 @@
 package org.payments.gateway.security;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +15,12 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig {
 
-    private final AuthenticationFilter authenticationFilter;
+
     private final ExceptionHandlerFilter exceptionHandlerFilter;
+    private final AuthenticationFilter authenticationFilter;
     private final JwtFilter jwtFilter;
 
 
@@ -38,6 +40,7 @@ public class SecurityConfig {
 
             authorize.requestMatchers(toH2Console()).permitAll()
                     .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/api/payments/**").authenticated()
                     .anyRequest().authenticated()
         )
                 .addFilterBefore(exceptionHandlerFilter, AuthenticationFilter.class)

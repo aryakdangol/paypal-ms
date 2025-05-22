@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.payments.gateway.dto.UserDTO;
 import org.payments.gateway.exception.AuthException;
 import org.payments.gateway.utils.JwtUtils;
@@ -27,8 +28,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class.getName());
     private final AuthenticationManager authenticationManager;
 
-
-    public AuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
+    public AuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
         this.authenticationManager = authenticationManager;
     }
@@ -60,13 +60,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         try {
             log.info("User authenticated successfully");
 
-            StringBuilder role = new StringBuilder();
 
-            for(GrantedAuthority au: authResult.getAuthorities()){
-                role.append(au.getAuthority());
-            }
-
-            String token = JwtUtils.generateToken(authResult.getName(), role.toString());
+            String token = JwtUtils.generateToken(authResult.getName());
 
             response.setStatus(200);
             response.setContentType("application/json");
