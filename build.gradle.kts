@@ -22,6 +22,16 @@ subprojects {
 
     dependencies {
         runtimeOnly("com.h2database:h2")
+        implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+        implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.1")
+        }
+    }
+
 }
+
+

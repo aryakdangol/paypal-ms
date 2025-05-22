@@ -9,5 +9,6 @@ dependencies {
     implementation("org.postgresql:postgresql")
 //    implementation("org.springframework.boot:spring-boot-starter-security") // if using JWT
     compileOnly("org.projectlombok:lombok")
+
     annotationProcessor("org.projectlombok:lombok")
 }

@@ -4,17 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="gateway service: auth completion">
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="gateway service: auth completion and forwarding to payments service">
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PayPalTokenInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PaypalAuthClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PaypalWebClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/PaypalApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/PaypalAccessTokenDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaypalAuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaymentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gateway/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/AuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/utils/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/utils/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Payment/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,6 +87,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -104,6 +111,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build payments-api.executor": "Run",
     "Gradle.payments-api:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
     "Gradle.payments-api:Payment [:Payment:PaymentService.main()].executor": "Run",
     "Gradle.paypal-nex:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
@@ -118,6 +126,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.payments.service.impl" />
       <recent name="org.payments.gateway.service" />
     </key>
   </component>
@@ -142,6 +151,10 @@
       </method>
     </configuration>
     <configuration name="PaymentService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="PAYPAL_CLIENT_ID" value="AXlUDqNgfKhbzhEQ79aHE4c3TT5606FC5entLfIL7OQOsQRWEMHBYkk3fXOuRpMVPI7AxuHTcIaTGJzL" />
+        <env name="PAYPAL_CLIENT_SECRET" value="EJ_5WtKz9qj1nhRiRzdY_YG2zeSsWxWuiqI3t6tGK4IYGY6b-5GOqATg_NIiXUf_CJfuV_CWRZJnK3a0" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="org.payments.PaymentService" />
       <module name="payments-api.Payment.main" />
       <extension name="coverage">
@@ -214,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747759751675</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="gateway service: auth completion and forwarding to payments service">
+      <option name="closed" value="true" />
+      <created>1747934628371</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747934628371</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,14 +251,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial setup" />
+    <MESSAGE value="gateway service: auth completion and forwarding to payments service" />
+    <option name="LAST_COMMIT_MESSAGE" value="gateway service: auth completion and forwarding to payments service" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/JwtFilter.java</url>
-          <line>34</line>
+          <line>36</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
