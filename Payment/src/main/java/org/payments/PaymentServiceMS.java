@@ -6,9 +6,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class PaymentService {
+public class PaymentServiceMS {
     public static void main(String[] args) {
 
-        SpringApplication.run(PaymentService.class);
+        SpringApplication.run(PaymentServiceMS.class);
     }
 }

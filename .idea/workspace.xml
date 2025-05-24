@@ -4,24 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="gateway service: auth completion and forwarding to payments service">
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PayPalTokenInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PaypalAuthClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PaypalWebClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/PaypalApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/PaypalAccessTokenDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaypalAuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaymentServiceImpl.java" afterDir="false" />
+    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="gateway service: payment service create order step">
+      <change afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/configs/CustomHttpServletRequestWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/AccessTokenConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/paypal/PaypalCreateOrderResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/model/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/repository/TransactionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/security/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gateway/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/Bean/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/configs/Beans.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/JwtFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/utils/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/utils/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Payment/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/PaymentServiceMS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PayPalTokenInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PayPalTokenInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PaypalWebClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PaypalWebClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/PaypalApiConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/config/PaypalApiConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/paypal/PaypalCreateOrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/PaypalAuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaymentServiceImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +115,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;aryakdangol&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/aryakdangol/paypal-ms.git&quot;,
+    &quot;accountId&quot;: &quot;ea73ece9-04ed-4b23-a802-94a90ba03319&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -114,6 +141,7 @@
     "Gradle.Build payments-api.executor": "Run",
     "Gradle.payments-api:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
     "Gradle.payments-api:Payment [:Payment:PaymentService.main()].executor": "Run",
+    "Gradle.payments-api:Payment [:Payment:PaymentServiceMS.main()].executor": "Run",
     "Gradle.paypal-nex:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
     "Gradle.paypal-nex:Gateway [build].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -121,7 +149,13 @@
     "last_opened_file_path": "D:/SWE/Projects/Agroute/agroroute-backend-spring",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "promo.database"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TEXT"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -130,13 +164,16 @@
       <recent name="org.payments.gateway.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PaymentService">
+  <component name="RunManager" selected="Application.PaymentServiceMS">
     <configuration name="GatewayApplication" type="Application" factoryName="Application" temporary="true">
       <option name="ALTERNATIVE_JRE_PATH" value="21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <envs>
+        <env name="DATABASE_USERNAME" value="postgres" />
+        <env name="DATABSE_URL" value="jdbc:postgresql://localhost:5432/postgres" />
+        <env name="DATANASE_PASSWORD" value="posgtres" />
         <env name="JWT_EXPIRY_TIME" value="3600000000" />
-        <env name="JWT_SECRET" value="fc0b7c3624f7f2d333b80238c250f3b1c0fe34c970582bdc08ccd67f2001395de227cf41e66bdd327dca5d947315bc02a521a3f04c284306b536b08670a429e2c0d610eaab02cf9e87791678fd195467feb2a7384957c2844f691d028d64219c2b8dd825f59d05f86fec10161fd713c4c895eaaa8bda5d357bfd0fe47bc785723d528240c004f1e4c2ae384060bf5360397b86b9c74beec5782a33f814ac625c2975907a720dcaf20de0b537a7b69c6dc8b7754985107f9d58d24c26da70d108579f8e451e93520dee09d3245365e77cfba2e0fe65bb79e6d8bf7185f9c08d2a68169450fd9f3b22f99c91849b7153bb4601086aeaa4ba84750f17fd4e026a04" />
+        <env name="JWT_SECRET" value="e98f45dfbc6387f147e9b1061381012c9cd79b3a2dc07b7a7ce8815bf46c4c0852e3c12e2d1c43ee8c083b3ba0263cb0d7e0c9d341fdf8f986e21b49860a8ba243c3a07a4fbe48271a66177e3482319cb83ef083a133aa4d4b2a61c0332b4064553ad3b7ebc73ee083d8769cf034b7c2f087969e6fe913a53957f8933581022c3bec421b1b67c7f2ea74eb92cbe3c6a236d9ba8768b9b32e2c114d74e81d2fd4b81c1f2845da832ed226f2504d5a65a8f317e9007d79a5c802aa575304ab26ea90eaf1282a6aa778a5f4dfb9a718c87710b98ebbc7ef55ecc3880bdbb5d4447eb90e903d15f0216e8eac145232cab3f8401b4c6af720e9b65495e09926984bfb19d5055fc4e580a953dccfe7ec95eeb4a8a439bb09f9d5ad90328a2959e70f215685064dcf74ce6f0916380d1affd863d4c2ae628c870260ef85673f391e23710378573232684b6724acbc5fd3a421cca1e61c8650202da443cb8cb9538a2dc7ce2bed248b9c59ea7ed0334532233d825fbe3db8e781acbdc9bd8b3b7f657af005526c2e0a5466cdbfbd1b56243673a7f2fea368aea0b1fa46a054417d121488b6ae54c8ad01d9e3afa47d8ef2ddbf10d4e5e78e69f9202a09ccda916bccee113683d815941add3b2fb4b1d8c5f9d1a6ed21dbe8c8c5a143c78f84ce168cb19aa28c8a57915225b3394a46fb59ae5431a962683c9b572d83202c79af4983eff6" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="org.payments.gateway.GatewayApplication" />
       <module name="payments-api.Gateway.main" />
@@ -150,12 +187,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PaymentService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="PaymentServiceMS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
+        <env name="DATABASE_USERNAME" value="postgres" />
+        <env name="DATABSE_URL" value="jdbc:postgresql://localhost:5432/postgres" />
+        <env name="DATANASE_PASSWORD" value="posgtres" />
         <env name="PAYPAL_CLIENT_ID" value="AXlUDqNgfKhbzhEQ79aHE4c3TT5606FC5entLfIL7OQOsQRWEMHBYkk3fXOuRpMVPI7AxuHTcIaTGJzL" />
         <env name="PAYPAL_CLIENT_SECRET" value="EJ_5WtKz9qj1nhRiRzdY_YG2zeSsWxWuiqI3t6tGK4IYGY6b-5GOqATg_NIiXUf_CJfuV_CWRZJnK3a0" />
       </envs>
-      <option name="MAIN_CLASS_NAME" value="org.payments.PaymentService" />
+      <option name="MAIN_CLASS_NAME" value="org.payments.PaymentServiceMS" />
       <module name="payments-api.Payment.main" />
       <extension name="coverage">
         <pattern>
@@ -190,14 +230,14 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.PaymentService" />
+      <item itemvalue="Application.PaymentServiceMS" />
       <item itemvalue="Application.GatewayApplication" />
       <item itemvalue="Gradle.paypal-nex:Gateway [build]" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.paypal-nex:Gateway [build]" />
-        <item itemvalue="Application.PaymentService" />
+        <item itemvalue="Application.PaymentServiceMS" />
         <item itemvalue="Application.GatewayApplication" />
       </list>
     </recent_temporary>
@@ -235,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747934628371</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="gateway service: payment service create order step">
+      <option name="closed" value="true" />
+      <created>1747941401228</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747941401228</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -252,17 +300,44 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial setup" />
     <MESSAGE value="gateway service: auth completion and forwarding to payments service" />
-    <option name="LAST_COMMIT_MESSAGE" value="gateway service: auth completion and forwarding to payments service" />
+    <MESSAGE value="gateway service: payment service create order step" />
+    <option name="LAST_COMMIT_MESSAGE" value="gateway service: payment service create order step" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/JwtFilter.java</url>
-          <line>36</line>
+          <line>39</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-oauth2-resource-server/6.4.5/36e0d46861b8e3f44730ee7cf1e7d10662548e36/spring-security-oauth2-resource-server-6.4.5.jar!/org/springframework/security/oauth2/server/resource/authentication/JwtAuthenticationProvider.class</url>
+          <line>33</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Payment/src/main/java/org/payments/clients/PayPalTokenInterceptor.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GradleRunConfiguration">
+        <watch expression="client.principalName" />
+        <watch expression="client" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

@@ -21,7 +21,7 @@ subprojects {
     apply(plugin = "io.spring.dependency-management")
 
     dependencies {
-        runtimeOnly("com.h2database:h2")
+        implementation("org.postgresql:postgresql")
         implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
         implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
         testImplementation("org.springframework.boot:spring-boot-starter-test")

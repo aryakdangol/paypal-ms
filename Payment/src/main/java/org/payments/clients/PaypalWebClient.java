@@ -1,7 +1,8 @@
 package org.payments.clients;
 
 import org.payments.config.PaypalApiConfig;
-import org.payments.dto.CreateOrderDTO;
+import org.payments.dto.paypal.PaypalCreateOrderDTO;
+import org.payments.dto.paypal.PaypalCreateOrderResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import java.util.Map;
 public interface PaypalWebClient {
 
     @PostMapping("/v2/checkout/orders")
-    Map<String, Object> createOrder(@RequestBody CreateOrderDTO createOrderDTO);
+    PaypalCreateOrderResponseDTO createOrder(@RequestBody PaypalCreateOrderDTO paypalCreateOrderDTO);
 
 
 }

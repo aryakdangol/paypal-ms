@@ -14,7 +14,7 @@ public class PaypalApiConfig {
 
 
     @Bean
-    public RequestInterceptor pauPalTokenrequestInterceptor(){
+    public RequestInterceptor payPalTokenrequestInterceptor(){
         return payPalTokenInterceptor;
     }
 

@@ -1,4 +1,4 @@
-package org.payments.dto;
+package org.payments.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateOrderDTO {
+public class PaypalCreateOrderDTO {
 
     @JsonProperty("intent")
     public String intent;

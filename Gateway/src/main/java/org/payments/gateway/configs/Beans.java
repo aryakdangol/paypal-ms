@@ -1,4 +1,4 @@
-package org.payments.gateway.Bean;
+package org.payments.gateway.configs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-public class Configs {
+public class Beans {
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){return  new BCryptPasswordEncoder();}
