@@ -37,8 +37,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize ->
 
-            authorize.requestMatchers(toH2Console()).permitAll()
-                    .requestMatchers("/auth/**").permitAll()
+            authorize.requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/api/payments/**").authenticated()
                     .anyRequest().authenticated()
         )
