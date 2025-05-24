@@ -1,6 +1,9 @@
 package org.payments.gateway.exception;
 
 
+import lombok.Getter;
+
+@Getter
 public class AuthException extends RuntimeException{
 
     private final int status;
@@ -10,7 +13,4 @@ public class AuthException extends RuntimeException{
         this.status = status;
     }
 
-    public int getStatus() {
-        return status;
-    }
 }

@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -19,8 +21,14 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    @GetMapping("/viewOrder/${orderId}")
-    public ResponseEntity<CreateOrderResponseDTO> viewOrder(@PathVariable String orderId){
+    @GetMapping("/viewOrder/{orderId}")
+    public ResponseEntity<CreateOrderResponseDTO> viewOrder(@RequestHeader(Constants.USERID_HEADER) String userId, @PathVariable String orderId){
+        return new ResponseEntity<CreateOrderResponseDTO>(paymentService.getOrder(orderId, Long.valueOf(userId)), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllOrders")
+    public ResponseEntity<List<CreateOrderResponseDTO>> getAllOrders(@RequestHeader(Constants.USERID_HEADER) String userId){
+       return new ResponseEntity<>(paymentService.findAllOrders(Long.valueOf(userId)), HttpStatus.OK);
 
     }
 

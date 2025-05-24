@@ -1,4 +1,4 @@
-package org.payments.gateway.dto;
+package com.payments.common.dtos;
 
 import lombok.Builder;
 import lombok.Data;
