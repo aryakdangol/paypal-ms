@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
@@ -92,7 +93,7 @@ public class PaypalPaymentService implements PaymentService {
 
         PaypalCreateOrderDTO paypalCreateOrderDTO = PaypalCreateOrderDTO.builder()
                 .intent("CAPTURE")
-                .paymentSource(PaypalCreateOrderDTO.PaymentSource.builder().paypal(PaypalCreateOrderDTO.Paypal.builder().experienceContext(PaypalCreateOrderDTO.ExperienceContext.builder().cancelUrl(hostUrl  + "/cancel").returnUrl(hostUrl + "/success").build()).build()).build())
+                .paymentSource(PaypalCreateOrderDTO.PaymentSource.builder().paypal(PaypalCreateOrderDTO.Paypal.builder().experienceContext(PaypalCreateOrderDTO.ExperienceContext.builder().cancelUrl(hostUrl  + "/api/payments/orders/cancel").returnUrl(hostUrl + "/api/payments/orders/success").build()).build()).build())
                 .purchaseUnits(List.of(PaypalCreateOrderDTO.PurchaseUnit.builder().amount(PaypalCreateOrderDTO.Amount.builder().currencyCode(currency).value(amount).build()).build()))
                 .build();
 
@@ -130,13 +131,67 @@ public class PaypalPaymentService implements PaymentService {
     }
 
     @Override
-    public void completeOrderSuccess() {
+    public CreateOrderResponseDTO captureOrder(String orderId, Long userId){
+        Transaction transaction =  transactionRepository.findByOrderIdAndUserId(orderId, userId)
+                .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404));
 
+        try{
+
+            PaypalCreateOrderResponseDTO response = paypalWebClient.captureOrder(orderId, "{}");
+
+            CreateOrderResponseDTO createOrderResponseDTO = mapPaypalResponse(response);
+
+            transaction.setOrderStatus(response.getStatus());
+            transaction.setDateModified(LocalDateTime.now());
+
+            Transaction modifiedTransaction = transactionRepository.save(transaction);
+
+            createOrderResponseDTO.setOrderStatus(modifiedTransaction.getOrderStatus());
+
+            return createOrderResponseDTO;
+
+        }
+        catch (Exception e){
+            log.error("Error occurred capturing order for orderId: {} with cause: {}", orderId, e.getMessage());
+            throw new TransactionException("Error occurred capturing order for orderID: " + orderId, 500);
+        }
+    }
+
+
+    @Override
+    public void completeOrderSuccess(String orderId) {
+
+        PaypalCreateOrderResponseDTO response = paypalWebClient.fetchOrder(orderId);
+
+        String status = response.getStatus();
+
+        Transaction transaction = transactionRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404));
+
+        transaction.setOrderStatus(status);
+        transaction.setDateModified(LocalDateTime.now());
+
+        Transaction modified = transactionRepository.save(transaction);
+
+        //captureOrder(modified.getOrderId(), modified.getUser().getId());
+
+        log.info("Order Approved for order id: {}", orderId);
     }
 
     @Override
-    public void completeOrderFailed() {
+    public void completeOrderFailed(String orderId) {
 
+        PaypalCreateOrderResponseDTO response = paypalWebClient.fetchOrder(orderId);
+
+        Transaction transaction = transactionRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404));
+
+        transaction.setOrderStatus(response.getStatus());
+        transaction.setDateModified(LocalDateTime.now());
+
+        transactionRepository.save(transaction);
+
+        log.info("Order failed for orderId: {}", orderId);
     }
 
     @Override

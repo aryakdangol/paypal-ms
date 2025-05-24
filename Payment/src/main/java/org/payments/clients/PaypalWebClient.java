@@ -17,8 +17,11 @@ public interface PaypalWebClient {
     @PostMapping("/v2/checkout/orders")
     PaypalCreateOrderResponseDTO createOrder(@RequestBody PaypalCreateOrderDTO paypalCreateOrderDTO);
 
-    @GetMapping("v2/checkout/orders/{orderId}")
+    @GetMapping("/v2/checkout/orders/{orderId}")
     PaypalCreateOrderResponseDTO fetchOrder(@PathVariable String orderId);
+
+    @PostMapping(value = "/v2/checkout/orders/{orderId}/capture", consumes = "application/json")
+    PaypalCreateOrderResponseDTO captureOrder(@PathVariable String orderId, @RequestBody(required = false) String emptyBody);
 
 
 }

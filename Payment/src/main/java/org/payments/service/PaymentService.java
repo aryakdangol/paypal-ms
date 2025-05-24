@@ -13,9 +13,11 @@ public interface PaymentService {
 
     public CreateOrderResponseDTO createOrder(Long userId, CreateOrderRequestDTO req);
 
-    public void completeOrderSuccess();
+    public CreateOrderResponseDTO captureOrder(String orderId, Long userId);
 
-    public void completeOrderFailed();
+    public void completeOrderSuccess(String orderId);
+
+    public void completeOrderFailed(String orderId);
 
     public void notification();
 

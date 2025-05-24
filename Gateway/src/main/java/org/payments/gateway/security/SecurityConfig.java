@@ -38,7 +38,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize ->
 
             authorize.requestMatchers("/auth/**").permitAll()
-                    .requestMatchers("/api/payments/**").authenticated()
+                    .requestMatchers("/api/payments/viewOrder/**").authenticated()
+                    .requestMatchers("/api/payments/getAllOrders").authenticated()
+                    .requestMatchers("/api/payments/createOrder").authenticated()
+                    .requestMatchers("/api/payments/orders/**").permitAll()
+                    .requestMatchers("/api/payments/captureOrder/**").permitAll()
                     .anyRequest().authenticated()
         )
                 .addFilterBefore(exceptionHandlerFilter, AuthenticationFilter.class)

@@ -37,4 +37,20 @@ public class PaymentController {
                                                                @RequestBody CreateOrderRequestDTO req){
         return new ResponseEntity<>(paymentService.createOrder(Long.valueOf(userId), req), HttpStatus.CREATED);
     }
+
+//    @PostMapping("/captureOrder/{orderId}")
+//    public ResponseEntity<CreateOrderResponseDTO> createOrder(@RequestHeader(Constants.USERID_HEADER) String userId,
+//                                                              @PathVariable String orderId){
+//        return new ResponseEntity<>(paymentService.completeOrderSuccess(orderId, Long.valueOf(userId)), HttpStatus.OK);
+//    }
+
+    @GetMapping("/orders/success")
+    public void success(@RequestParam("token") String orderId){
+        paymentService.completeOrderSuccess(orderId);
+    }
+
+    @GetMapping("/orders/cancel")
+    public void failed(@RequestParam("token") String orderId){
+        paymentService.completeOrderFailed(orderId);
+    }
 }
