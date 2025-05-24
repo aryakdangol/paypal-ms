@@ -1,6 +1,6 @@
-package org.payments.repository;
+package com.payments.common.repositories;
 
-import org.payments.model.Transaction;
+import com.payments.common.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {

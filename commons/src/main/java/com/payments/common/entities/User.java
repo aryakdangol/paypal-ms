@@ -1,4 +1,4 @@
-package org.payments.gateway.entity;
+package com.payments.common.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

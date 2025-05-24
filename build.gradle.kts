@@ -21,10 +21,13 @@ subprojects {
     apply(plugin = "io.spring.dependency-management")
 
     dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
         implementation("org.postgresql:postgresql")
         implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
         implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+        compileOnly("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
     }
     dependencyManagement {
         imports {

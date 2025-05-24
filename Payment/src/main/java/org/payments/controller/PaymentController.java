@@ -1,17 +1,15 @@
 package org.payments.controller;
 
-import com.payments.utils.Constants;
+import com.payments.common.entities.Transaction;
+import com.payments.common.utils.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.payments.model.Transaction;
+import org.payments.dto.CreateOrderRequestDTO;
+import org.payments.dto.CreateOrderResponseDTO;
 import org.payments.service.PaymentService;
-import org.payments.service.impl.PaypalPaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -21,8 +19,14 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    @GetMapping("/createOrder")
-    public ResponseEntity<Transaction> checkPayment(@RequestHeader(Constants.USERNAME_HEADER) String username){
-        return new ResponseEntity<>(paymentService.createOrder(username), HttpStatus.CREATED);
+    @GetMapping("/viewOrder/${orderId}")
+    public ResponseEntity<CreateOrderResponseDTO> viewOrder(@PathVariable String orderId){
+
+    }
+
+    @PostMapping("/createOrder")
+    public ResponseEntity<CreateOrderResponseDTO> createOrder(@RequestHeader(Constants.USERID_HEADER) String userId,
+                                                               @RequestBody CreateOrderRequestDTO req){
+        return new ResponseEntity<>(paymentService.createOrder(Long.valueOf(userId), req), HttpStatus.CREATED);
     }
 }

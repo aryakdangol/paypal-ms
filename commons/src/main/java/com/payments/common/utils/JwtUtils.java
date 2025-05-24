@@ -1,4 +1,4 @@
-package com.payments.utils;
+package com.payments.common.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

@@ -1,7 +1,7 @@
 package org.payments.gateway.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.payments.utils.JwtUtils;
+import com.payments.common.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

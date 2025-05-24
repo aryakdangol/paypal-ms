@@ -10,7 +10,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation(project(":commons"))
     implementation("org.postgresql:postgresql")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
 }
 

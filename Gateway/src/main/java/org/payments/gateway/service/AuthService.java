@@ -1,7 +1,7 @@
 package org.payments.gateway.service;
 
 import org.payments.gateway.dto.UserDTO;
-import org.payments.gateway.entity.User;
+import com.payments.common.entities.User;
 
 
 public interface AuthService {

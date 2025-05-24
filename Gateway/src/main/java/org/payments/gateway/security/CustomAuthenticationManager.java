@@ -1,7 +1,7 @@
 package org.payments.gateway.security;
 
 import lombok.AllArgsConstructor;
-import org.payments.gateway.entity.User;
+import com.payments.common.entities.User;
 import org.payments.gateway.exception.AuthException;
 import org.payments.gateway.service.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;

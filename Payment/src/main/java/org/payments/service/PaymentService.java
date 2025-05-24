@@ -1,10 +1,11 @@
 package org.payments.service;
 
-import org.payments.model.Transaction;
+import org.payments.dto.CreateOrderRequestDTO;
+import org.payments.dto.CreateOrderResponseDTO;
 
 public interface PaymentService {
 
-    public Transaction createOrder(String username);
+    public CreateOrderResponseDTO createOrder(Long userId, CreateOrderRequestDTO req);
 
     public void completeOrderSuccess();
 
