@@ -7,7 +7,7 @@ This project integrates paypal api to create, approve, cancel and capture the or
 
 ### Installation
 - Install docker on local system
-- Clone the repository
+- Clone the repository and checkout to development branch
 - Add .env file the content are shared in environment setup section
 - Run ./gradlew clean build 
 - Run docker compose up --build
@@ -42,6 +42,7 @@ The flow is as follows:
 - Use auth/signup to register a user
 - Login the user using auth/login
 - Use the jwt generated in previous step to create an order using /api/payments/createOrder
+- On createOrder api add the ngrok host under successUrl and cancelUrl.
 - You can view your created orders using /api/payments/getAllOrders endpoint
 - To view the details of order use /api/payments/viewOrder/{orderId} where orderId is the paypal generated order id.
 - To approve the order simply follow the approvalLink from the viewOrder or createOrder api. Please note that to approve you must be sign into a personal account
