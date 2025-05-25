@@ -44,9 +44,6 @@ public class PaypalPaymentService implements PaymentService {
     @Autowired
     UserRepository userRepository;
 
-    @Value("${ngrok.url}")
-    String hostUrl;
-
     @Autowired
     StatusMapper statusMapper;
 

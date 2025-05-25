@@ -33,6 +33,7 @@ public class RedisPublisher implements PublisherService {
         }
         catch (Exception ex){
             log.error("Failed to publish event: {} for order id: {}", message.getEventType(), message.getOrderId());
+            log.error("Publish event cause: {}", ex.getMessage());
         }
     }
 }
