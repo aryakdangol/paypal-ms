@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="payment service: completed create_order with oath2 client spring">
-      <change afterPath="$PROJECT_DIR$/commons/build.gradle.kts" afterDir="false" />
+    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="payment service: success and cancel order">
+      <change afterPath="$PROJECT_DIR$/Payment/src/test/java/org/payments/service/impl/PaypalPaymentServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/Beans/StatusMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/Enums/TransactionStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/utils/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +79,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -118,6 +123,8 @@
     "Gradle.paypal-nex:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
     "Gradle.paypal-nex:Gateway [build].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/SWE/Projects/Agroute/agroroute-backend-spring",
     "project.structure.last.edited": "Modules",
@@ -135,6 +142,12 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.payments.service.impl" />
       <recent name="org.payments.gateway.service" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.payments.service.impl" />
     </key>
   </component>
   <component name="RunManager" selected="Application.GatewayApplication">
@@ -262,7 +275,39 @@
       <option name="project" value="LOCAL" />
       <updated>1748099391590</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="payment service: replace with postgres">
+      <option name="closed" value="true" />
+      <created>1748100220968</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748100220968</updated>
+    </task>
+    <task id="LOCAL-00007" summary="payment service: migrated to post body and moved models and repo to common also created indexes">
+      <option name="closed" value="true" />
+      <created>1748108501163</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748108501163</updated>
+    </task>
+    <task id="LOCAL-00008" summary="payment service: getOrders by id and user id">
+      <option name="closed" value="true" />
+      <created>1748111892716</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748111892716</updated>
+    </task>
+    <task id="LOCAL-00009" summary="payment service: success and cancel order">
+      <option name="closed" value="true" />
+      <created>1748118213340</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748118213340</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -281,14 +326,18 @@
     <MESSAGE value="gateway service: auth completion and forwarding to payments service" />
     <MESSAGE value="gateway service: payment service create order step" />
     <MESSAGE value="payment service: completed create_order with oath2 client spring" />
-    <option name="LAST_COMMIT_MESSAGE" value="payment service: completed create_order with oath2 client spring" />
+    <MESSAGE value="payment service: replace with postgres" />
+    <MESSAGE value="payment service: migrated to post body and moved models and repo to common also created indexes" />
+    <MESSAGE value="payment service: getOrders by id and user id" />
+    <MESSAGE value="payment service: success and cancel order" />
+    <option name="LAST_COMMIT_MESSAGE" value="payment service: success and cancel order" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/JwtFilter.java</url>
-          <line>39</line>
+          <line>37</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -302,14 +351,14 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/AuthenticationFilter.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="11" />
+          <line>76</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -12,5 +12,7 @@ public class CreateOrderRequestDTO {
 
     String amount;
     String currency;
+    String successUrl;
+    String cancelUrl;
 
 }

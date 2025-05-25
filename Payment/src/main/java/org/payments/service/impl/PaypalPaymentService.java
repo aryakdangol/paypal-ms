@@ -2,9 +2,12 @@ package org.payments.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.payments.common.Beans.StatusMapper;
+import com.payments.common.Enums.TransactionStatus;
 import com.payments.common.entities.Transaction;
 import com.payments.common.entities.User;
 import com.payments.common.repositories.UserRepository;
+import com.payments.common.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.payments.clients.PaypalWebClient;
 import org.payments.dto.CreateOrderRequestDTO;
@@ -42,6 +45,9 @@ public class PaypalPaymentService implements PaymentService {
 
     @Value("${ngrok.url}")
     String hostUrl;
+
+    @Autowired
+    StatusMapper statusMapper;
 
 
     @Override
@@ -93,7 +99,11 @@ public class PaypalPaymentService implements PaymentService {
 
         PaypalCreateOrderDTO paypalCreateOrderDTO = PaypalCreateOrderDTO.builder()
                 .intent("CAPTURE")
-                .paymentSource(PaypalCreateOrderDTO.PaymentSource.builder().paypal(PaypalCreateOrderDTO.Paypal.builder().experienceContext(PaypalCreateOrderDTO.ExperienceContext.builder().cancelUrl(hostUrl  + "/api/payments/orders/cancel").returnUrl(hostUrl + "/api/payments/orders/success").build()).build()).build())
+                .paymentSource(PaypalCreateOrderDTO.PaymentSource.builder().
+                                paypal(PaypalCreateOrderDTO.Paypal.builder()
+                                        .experienceContext(PaypalCreateOrderDTO.ExperienceContext.builder()
+                                                .cancelUrl(req.getCancelUrl())
+                                                .returnUrl(req.getSuccessUrl()).build()).build()).build())
                 .purchaseUnits(List.of(PaypalCreateOrderDTO.PurchaseUnit.builder().amount(PaypalCreateOrderDTO.Amount.builder().currencyCode(currency).value(amount).build()).build()))
                 .build();
 
@@ -135,8 +145,13 @@ public class PaypalPaymentService implements PaymentService {
         Transaction transaction =  transactionRepository.findByOrderIdAndUserId(orderId, userId)
                 .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404));
 
-        try{
+        String status = transaction.getOrderStatus();
 
+        if(!statusMapper.getStatus(status).equals(TransactionStatus.NONTERMINAL)){
+            throw new TransactionException("Order id" + transaction.getOrderId()  + " is already in terminal state: " + transaction.getOrderStatus(), 412);
+        }
+
+        try{
             PaypalCreateOrderResponseDTO response = paypalWebClient.captureOrder(orderId, "{}");
 
             CreateOrderResponseDTO createOrderResponseDTO = mapPaypalResponse(response);
@@ -186,7 +201,7 @@ public class PaypalPaymentService implements PaymentService {
         Transaction transaction = transactionRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404));
 
-        transaction.setOrderStatus(response.getStatus());
+        transaction.setOrderStatus(Constants.TRANSACTION_CANCELLED);
         transaction.setDateModified(LocalDateTime.now());
 
         transactionRepository.save(transaction);
