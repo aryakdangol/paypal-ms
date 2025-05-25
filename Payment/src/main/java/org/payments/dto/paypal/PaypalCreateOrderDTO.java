@@ -29,6 +29,8 @@ public class PaypalCreateOrderDTO {
         @JsonProperty("amount")
         private Amount amount;
 
+        @JsonProperty("invoice_id")
+        private String invoiceId;
     }
 
     @Builder

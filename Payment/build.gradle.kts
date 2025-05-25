@@ -10,4 +10,6 @@ dependencies {
     implementation(project(":commons"))
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+
 }

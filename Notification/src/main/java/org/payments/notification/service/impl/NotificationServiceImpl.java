@@ -79,7 +79,7 @@ public class NotificationServiceImpl implements NotificationService {
                                 a -> URLDecoder.decode(a.length > 1 ? a[1] : "", StandardCharsets.UTF_8)
                         ));
                 log.info("Verified IPN purchase: {}", objectMapper.writeValueAsString(params));
-                String orderId = params.get("txn_id");
+                String orderId = params.get("invoice");
                 String orderStatus = params.get("payment_status");
                 PubSubDTO pubSubDTO = PubSubDTO.builder().eventType(orderStatus).orderId(orderId).build();
                 publisherService.publishMessage(pubSubDTO);

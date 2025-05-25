@@ -14,4 +14,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     Optional<Transaction> findByOrderId(String orderId);
 
+    Optional<Transaction> findByInvoiceId(String invoiceId);
+
 }

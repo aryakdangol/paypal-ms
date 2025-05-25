@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "transactions", indexes = {
         @Index(name = "idx_transaction_user_id", columnList = "user_id"),
-        @Index(name = "idx_order_id", columnList = "order_id")
+        @Index(name = "idx_order_id", columnList = "order_id"),
+        @Index(name = "idx_invoice_id", columnList = "invoice_id")
 })
 public class Transaction {
 
@@ -35,5 +36,8 @@ public class Transaction {
 
     @Column(name = "date_modified")
     LocalDateTime dateModified;
+
+    @Column(name = "invoice_id")
+    String invoiceId;
 
 }

@@ -9,6 +9,7 @@ import com.payments.common.entities.User;
 import com.payments.common.repositories.UserRepository;
 import com.payments.common.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.payments.clients.PaypalWebClient;
 import org.payments.dto.CreateOrderRequestDTO;
 import org.payments.dto.CreateOrderResponseDTO;
@@ -96,6 +97,7 @@ public class PaypalPaymentService implements PaymentService {
 
         String amount = req.getAmount();
         String currency = req.getCurrency();
+        String invoiceId = req.getInvoiceId() + RandomStringUtils.randomAlphabetic(5);
 
         PaypalCreateOrderDTO paypalCreateOrderDTO = PaypalCreateOrderDTO.builder()
                 .intent("CAPTURE")
@@ -104,7 +106,7 @@ public class PaypalPaymentService implements PaymentService {
                                         .experienceContext(PaypalCreateOrderDTO.ExperienceContext.builder()
                                                 .cancelUrl(req.getCancelUrl())
                                                 .returnUrl(req.getSuccessUrl()).build()).build()).build())
-                .purchaseUnits(List.of(PaypalCreateOrderDTO.PurchaseUnit.builder().amount(PaypalCreateOrderDTO.Amount.builder().currencyCode(currency).value(amount).build()).build()))
+                .purchaseUnits(List.of(PaypalCreateOrderDTO.PurchaseUnit.builder().amount(PaypalCreateOrderDTO.Amount.builder().currencyCode(currency).value(amount).build()).invoiceId(invoiceId).build()))
                 .build();
 
         User user = userRepository.findById(userId)
@@ -129,6 +131,7 @@ public class PaypalPaymentService implements PaymentService {
                 .dateCreated(LocalDateTime.now())
                 .dateModified(LocalDateTime.now())
                 .user(user)
+                .invoiceId(invoiceId)
                 .build();
 
         transactionRepository.save(transaction);
@@ -217,7 +220,7 @@ public class PaypalPaymentService implements PaymentService {
     @Override
     public void notification(String orderId, String status) {
 
-        Transaction transaction = transactionRepository.findByOrderId(orderId)
+        Transaction transaction = transactionRepository.findByInvoiceId(orderId)
                 .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404, "IPN_ORDER"));
 
         if(!statusMapper.getStatus(transaction.getOrderStatus()).equals(TransactionStatus.NONTERMINAL)){
