@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="payment service: success and cancel order">
-      <change afterPath="$PROJECT_DIR$/Payment/src/test/java/org/payments/service/impl/PaypalPaymentServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/Beans/StatusMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/Enums/TransactionStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/controller/NotificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/service/impl/NotificationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Notification/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/dto/CreateOrderRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/org/payments/service/impl/PaypalPaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/payments/common/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notification/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Notification/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notification/src/main/java/org/payments/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/NotificationServiceMS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,37 +39,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="payments-api" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="payments-api" type="f1a62948:ProjectNode" />
-                <item name="Gateway" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="payments-api" type="f1a62948:ProjectNode" />
-                <item name="Gateway" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="payments-api" type="f1a62948:ProjectNode" />
-                <item name="Gateway" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="payments-api" type="f1a62948:ProjectNode" />
-                <item name="Gateway" type="2d1252cf:ModuleNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="payments-api" type="f1a62948:ProjectNode" />
-                <item name="Gateway" type="2d1252cf:ModuleNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-                <item name="runtimeClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -80,8 +51,8 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -118,6 +89,7 @@
   "keyToString": {
     "Gradle.Build payments-api.executor": "Run",
     "Gradle.payments-api:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
+    "Gradle.payments-api:Notification [:Notification:NotificationServiceMS.main()].executor": "Run",
     "Gradle.payments-api:Payment [:Payment:PaymentService.main()].executor": "Run",
     "Gradle.payments-api:Payment [:Payment:PaymentServiceMS.main()].executor": "Run",
     "Gradle.paypal-nex:Gateway [:Gateway:GatewayApplication.main()].executor": "Run",
@@ -140,6 +112,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.payments.notification.service" />
       <recent name="org.payments.service.impl" />
       <recent name="org.payments.gateway.service" />
     </key>
@@ -150,7 +123,7 @@
       <recent name="org.payments.service.impl" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GatewayApplication">
+  <component name="RunManager" selected="Application.NotificationServiceMS">
     <configuration name="GatewayApplication" type="Application" factoryName="Application" temporary="true">
       <option name="ALTERNATIVE_JRE_PATH" value="21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -164,7 +137,20 @@
       <module name="payments-api.Gateway.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.payments.*" />
+          <option name="PATTERN" value="org.payments.notification.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationServiceMS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.payments.notification.NotificationServiceMS" />
+      <module name="payments-api.Notification.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.payments.notification.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -183,7 +169,7 @@
       <module name="payments-api.Payment.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.payments.*" />
+          <option name="PATTERN" value="org.payments.notification.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -214,12 +200,14 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.NotificationServiceMS" />
       <item itemvalue="Application.PaymentServiceMS" />
       <item itemvalue="Application.GatewayApplication" />
       <item itemvalue="Gradle.paypal-nex:Gateway [build]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.NotificationServiceMS" />
         <item itemvalue="Gradle.paypal-nex:Gateway [build]" />
         <item itemvalue="Application.PaymentServiceMS" />
         <item itemvalue="Application.GatewayApplication" />
