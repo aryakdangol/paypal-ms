@@ -37,7 +37,7 @@ Install ngrok to tunnel localhost to an accesible url using command ngrok http 8
 
 ### Usage
 
-To use the app please download the postman collection under assets.
+To use the app please download the postman collection freom: [api-collection](https://www.postman.com/spacecraft-geoscientist-54000230/public-workspace/collection/ttvtn2u/payments?action=share&creator=17615029).
 The flow is as follows:
 - Use auth/signup to register a user
 - Login the user using auth/login
