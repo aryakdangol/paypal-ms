@@ -6,5 +6,6 @@ public  class Constants {
     public static final String TRANSACTION_COMPLETED = "COMPLETED";
     public static final String TRANSACTION_FAILED = "FAILED";
     public static final String TRANSACTION_CANCELLED = "CANCELLED";
+    public static final String TRANSACTION_APPROVED = "APPROVED";
 
 }

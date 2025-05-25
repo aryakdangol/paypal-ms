@@ -15,10 +15,10 @@ public interface PaymentService {
 
     public CreateOrderResponseDTO captureOrder(String orderId, Long userId);
 
-    public void completeOrderSuccess(String orderId);
+    public CreateOrderResponseDTO completeOrderSuccess(String orderId);
 
-    public void completeOrderFailed(String orderId);
+    public CreateOrderResponseDTO completeOrderFailed(String orderId);
 
-    public void notification();
+    public void notification(String orderId, String status);
 
 }

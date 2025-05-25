@@ -1,6 +1,8 @@
 package org.payments.notification.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.payments.common.dtos.PubSubDTO;
+import com.payments.common.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.payments.notification.service.NotificationService;
 
@@ -38,21 +40,19 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     PublisherService publisherService;
 
-    @Value("${redis.channel.name}")
-    String channel;
 
     @Override
     public void handleOrderSuccess(String orderId) {
         log.info("Payment Approved for order id {}", orderId);
-        publisherService.publishMessage(channel, orderId);
-
-
+        PubSubDTO message = PubSubDTO.builder().eventType(Constants.TRANSACTION_APPROVED).orderId(orderId).build();
+        publisherService.publishMessage(message);
     }
 
     @Override
     public void handleOrderFailed(String orderId) {
         log.info("Payment cancelled for order id: {}", orderId);
-
+        PubSubDTO message = PubSubDTO.builder().eventType(Constants.TRANSACTION_CANCELLED).orderId(orderId).build();
+        publisherService.publishMessage(message);
     }
 
     @Override
@@ -81,12 +81,11 @@ public class NotificationServiceImpl implements NotificationService {
                 log.info("Verified IPN purchase: {}", objectMapper.writeValueAsString(params));
                 String orderId = params.get("txn_id");
                 String orderStatus = params.get("payment_status");
-
+                PubSubDTO pubSubDTO = PubSubDTO.builder().eventType(orderStatus).orderId(orderId).build();
+                publisherService.publishMessage(pubSubDTO);
                 return true;
             }
             return false;
-
-
         }
         catch (Exception e){
             log.error("Error fetching ipn status: {}", e.getMessage());

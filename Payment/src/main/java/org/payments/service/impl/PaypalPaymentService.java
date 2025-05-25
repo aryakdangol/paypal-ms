@@ -75,7 +75,7 @@ public class PaypalPaymentService implements PaymentService {
     public CreateOrderResponseDTO getOrder(String orderId, Long userId) {
 
         transactionRepository.findByOrderIdAndUserId(orderId, userId)
-                .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404));
+                .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404, "GET_ORDER"));
 
 
         try{
@@ -86,7 +86,7 @@ public class PaypalPaymentService implements PaymentService {
 
         catch (Exception e) {
             log.error("Error fetching orders from paypal for orderId: {} and userId: {} with message: {}", orderId, userId, e.getMessage());
-            throw new TransactionException("Error fetching order from PayPal", 500);
+            throw new TransactionException("Error fetching order from PayPal", 500, "GET_ORDER");
         }
     }
 
@@ -108,7 +108,7 @@ public class PaypalPaymentService implements PaymentService {
                 .build();
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new TransactionException("User not found with userId: " + userId, 404));
+                .orElseThrow(() -> new TransactionException("User not found with userId: " + userId, 404, "CREATE_ORDER"));
 
        PaypalCreateOrderResponseDTO response;
         try {
@@ -119,7 +119,7 @@ public class PaypalPaymentService implements PaymentService {
 
         } catch (JsonProcessingException e) {
             log.error("Error while sending request to paypal API: {}", e.getMessage());
-            throw new TransactionException("Error  creating orders", 500);
+            throw new TransactionException("Error  creating orders", 500,"CREATE_ORDER");
         }
         CreateOrderResponseDTO createOrderResponseDTO = mapPaypalResponse(response);
         //save to db
@@ -143,12 +143,12 @@ public class PaypalPaymentService implements PaymentService {
     @Override
     public CreateOrderResponseDTO captureOrder(String orderId, Long userId){
         Transaction transaction =  transactionRepository.findByOrderIdAndUserId(orderId, userId)
-                .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404));
+                .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404, "CAPTURE_ORDER"));
 
         String status = transaction.getOrderStatus();
 
         if(!statusMapper.getStatus(status).equals(TransactionStatus.NONTERMINAL)){
-            throw new TransactionException("Order id" + transaction.getOrderId()  + " is already in terminal state: " + transaction.getOrderStatus(), 412);
+            throw new TransactionException("Order id" + transaction.getOrderId()  + " is already in terminal state: " + transaction.getOrderStatus(), 412, "CAPTURE_ORDER");
         }
 
         try{
@@ -168,50 +168,65 @@ public class PaypalPaymentService implements PaymentService {
         }
         catch (Exception e){
             log.error("Error occurred capturing order for orderId: {} with cause: {}", orderId, e.getMessage());
-            throw new TransactionException("Error occurred capturing order for orderID: " + orderId, 500);
+            throw new TransactionException("Error occurred capturing order for orderID: " + orderId, 500, "CAPTURE_ORDER");
         }
     }
 
 
     @Override
-    public void completeOrderSuccess(String orderId) {
+    public CreateOrderResponseDTO completeOrderSuccess(String orderId) {
+
+        Transaction transaction = transactionRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404, "SUCCESS_ORDER"));
 
         PaypalCreateOrderResponseDTO response = paypalWebClient.fetchOrder(orderId);
 
         String status = response.getStatus();
-
-        Transaction transaction = transactionRepository.findByOrderId(orderId)
-                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404));
 
         transaction.setOrderStatus(status);
         transaction.setDateModified(LocalDateTime.now());
 
         Transaction modified = transactionRepository.save(transaction);
 
-        //captureOrder(modified.getOrderId(), modified.getUser().getId());
+        CreateOrderResponseDTO createOrderResponseDTO = captureOrder(modified.getOrderId(), modified.getUser().getId());
 
-        log.info("Order Approved for order id: {}", orderId);
+        log.info("Order Completed for order id: {}", orderId);
+        return createOrderResponseDTO;
     }
 
     @Override
-    public void completeOrderFailed(String orderId) {
-
-        PaypalCreateOrderResponseDTO response = paypalWebClient.fetchOrder(orderId);
+    public CreateOrderResponseDTO completeOrderFailed(String orderId) {
 
         Transaction transaction = transactionRepository.findByOrderId(orderId)
-                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404));
+                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404, "CANCELLED_ORDER"));
 
         transaction.setOrderStatus(Constants.TRANSACTION_CANCELLED);
         transaction.setDateModified(LocalDateTime.now());
 
-        transactionRepository.save(transaction);
+        Transaction modifiedTransaction = transactionRepository.save(transaction);
 
-        log.info("Order failed for orderId: {}", orderId);
+        log.info("Order cancelled for order id: {}", orderId);
+
+        return CreateOrderResponseDTO.builder().orderCreatedDate(modifiedTransaction.getDateCreated())
+                .orderId(orderId)
+                .username(modifiedTransaction.getUser().getUserName())
+                .orderStatus(modifiedTransaction.getOrderStatus())
+                .build();
     }
 
     @Override
-    public void notification() {
+    public void notification(String orderId, String status) {
 
+        Transaction transaction = transactionRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new TransactionException("Order id: " + orderId + " not found", 404, "IPN_ORDER"));
+
+        if(!statusMapper.getStatus(transaction.getOrderStatus()).equals(TransactionStatus.NONTERMINAL)){
+            log.info("Transaction for orderId: {} is already in terminal state: {}", transaction.getOrderId(), transaction.getOrderStatus());
+        }
+        log.info("Received Status for orderId: {} is: {}", orderId, status);
+        transaction.setOrderStatus(status.toUpperCase());
+        transaction.setDateModified(LocalDateTime.now());
+        transactionRepository.save(transaction);
     }
 
     private CreateOrderResponseDTO mapPaypalResponse(PaypalCreateOrderResponseDTO response){
