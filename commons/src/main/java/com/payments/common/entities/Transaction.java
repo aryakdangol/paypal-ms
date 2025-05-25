@@ -40,4 +40,7 @@ public class Transaction {
     @Column(name = "invoice_id")
     String invoiceId;
 
+    @Column(name = "retry_count")
+    Long retryCount;
+
 }

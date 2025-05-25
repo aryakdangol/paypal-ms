@@ -8,6 +8,7 @@ import com.payments.common.entities.Transaction;
 import com.payments.common.entities.User;
 import com.payments.common.repositories.UserRepository;
 import com.payments.common.utils.Constants;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.payments.clients.PaypalWebClient;
@@ -16,12 +17,17 @@ import org.payments.dto.CreateOrderResponseDTO;
 import org.payments.dto.paypal.PaypalCreateOrderDTO;
 import org.payments.dto.paypal.PaypalCreateOrderResponseDTO;
 import com.payments.common.repositories.TransactionRepository;
+import org.payments.exceptions.RetryableException;
 import org.payments.exceptions.TransactionException;
 import org.payments.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,6 +150,11 @@ public class PaypalPaymentService implements PaymentService {
     }
 
     @Override
+    @Retryable(
+            retryFor = { FeignException.class },
+            maxAttempts = 3,
+            backoff = @Backoff(delay = 5000, multiplier = 2)
+    )
     public CreateOrderResponseDTO captureOrder(String orderId, Long userId){
         Transaction transaction =  transactionRepository.findByOrderIdAndUserId(orderId, userId)
                 .orElseThrow(() -> new TransactionException("Transaction not found for userId: " + userId + " and orderId: "+  orderId, 404, "CAPTURE_ORDER"));
@@ -169,8 +180,31 @@ public class PaypalPaymentService implements PaymentService {
             return createOrderResponseDTO;
 
         }
+        catch (FeignException ex){
+            Long count = transaction.getRetryCount();
+            if(transaction.getRetryCount() <= 3
+                    && (ex.status() == 500 || ex.status() == 503)
+                    && transaction.getOrderStatus().equals(Constants.RETRY_FAILED)){
+                log.info("Retrying capture order for order id: {} count: {}", orderId, count);
+                transaction.setOrderStatus(Constants.RETRY_FAILED);
+                count++;
+                transaction.setRetryCount(count);
+                transactionRepository.save(transaction);
+                throw  new RetryableException("Retrying capture");
+            }
+            else {
+                log.error("Error is not retryable for order id: {}", orderId);
+                transaction.setOrderStatus(Constants.TRANSACTION_FAILED);
+                transaction.setDateModified(LocalDateTime.now());
+                transactionRepository.save(transaction);
+                throw new TransactionException("Error occurred capturing order for orderID: " + orderId, 500, "CAPTURE_ORDER");
+            }
+        }
         catch (Exception e){
             log.error("Error occurred capturing order for orderId: {} with cause: {}", orderId, e.getMessage());
+            transaction.setOrderStatus(Constants.TRANSACTION_FAILED);
+            transaction.setDateModified(LocalDateTime.now());
+            transactionRepository.save(transaction);
             throw new TransactionException("Error occurred capturing order for orderID: " + orderId, 500, "CAPTURE_ORDER");
         }
     }
