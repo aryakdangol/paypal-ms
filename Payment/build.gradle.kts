@@ -9,4 +9,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security") // if using JWT
     implementation(project(":commons"))
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.payments.notification.service.NotificationService;
 
+import org.payments.notification.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -34,9 +35,17 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    PublisherService publisherService;
+
+    @Value("${redis.channel.name}")
+    String channel;
+
     @Override
     public void handleOrderSuccess(String orderId) {
         log.info("Payment Approved for order id {}", orderId);
+        publisherService.publishMessage(channel, orderId);
+
 
     }
 
