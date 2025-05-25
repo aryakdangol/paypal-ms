@@ -1,7 +1,7 @@
 package org.payments.gateway.security;
 
 import com.payments.common.utils.Constants;
-import com.payments.common.utils.JwtUtils;
+import org.payments.gateway.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

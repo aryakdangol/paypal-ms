@@ -1,4 +1,4 @@
-package com.payments.common.utils;
+package org.payments.gateway.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

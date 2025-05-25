@@ -31,6 +31,7 @@ subprojects {
     dependencyManagement {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.1")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.4")
         }
     }
 

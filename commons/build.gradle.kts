@@ -1,7 +1,7 @@
 plugins {
     id("java-library")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
+//    id("org.springframework.boot")
+//    id("io.spring.dependency-management")
 }
 
 group = "com.payments"
@@ -12,6 +12,5 @@ repositories {
 }
 
 dependencies {
-    implementation("com.auth0:java-jwt:4.4.0")
 
 }
