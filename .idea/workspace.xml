@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="payment service: success and cancel order">
-      <change afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/controller/NotificationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/service/NotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/service/impl/NotificationServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Notification/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="21d037c3-cc33-4083-a0cb-6391d8bda841" name="Changes" comment="notification service: setup for notification service">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/java/org/payments/gateway/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Notification/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification/src/main/java/org/payments/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification/src/main/java/org/payments/notification/NotificationServiceMS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748118213340</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="notification service: setup for notification service">
+      <option name="closed" value="true" />
+      <created>1748160396317</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1748160396317</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -318,7 +317,8 @@
     <MESSAGE value="payment service: migrated to post body and moved models and repo to common also created indexes" />
     <MESSAGE value="payment service: getOrders by id and user id" />
     <MESSAGE value="payment service: success and cancel order" />
-    <option name="LAST_COMMIT_MESSAGE" value="payment service: success and cancel order" />
+    <MESSAGE value="notification service: setup for notification service" />
+    <option name="LAST_COMMIT_MESSAGE" value="notification service: setup for notification service" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

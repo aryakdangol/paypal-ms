@@ -2,6 +2,8 @@ package org.payments.notification.controller;
 
 import org.payments.notification.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,9 +23,14 @@ public class NotificationController {
         notificationService.handleOrderFailed(orderId);
     }
 
-    @PostMapping("/sendResult")
-    public void handleNotification(@RequestBody String payload){
-        notificationService.handleNotification(payload);
+    @PostMapping("/receive")
+    public ResponseEntity<String> handleNotification(@RequestBody String payload){
+        if(notificationService.handleNotification(payload)){
+            return new ResponseEntity<String>("IPN Processed", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("Invalid IPN", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

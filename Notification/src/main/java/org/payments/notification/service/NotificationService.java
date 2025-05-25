@@ -6,6 +6,6 @@ public interface NotificationService {
 
     public void handleOrderFailed(String orderId);
 
-    public void handleNotification(String orderId);
+    public boolean handleNotification(String payload);
 
 }
